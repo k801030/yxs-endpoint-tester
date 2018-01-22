@@ -1,26 +1,17 @@
 {
-  "name": "hackday-api",
-  "version": "1.0.0",
-  "lockfileVersion": 1,
-  "requires": true,
-  "dependencies": {
-    "api-quick": "^0.3.3",
-    "nodemon": "^1.14.11"
-  },
+  "name": "quick-api",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node ./bin/www"
   },
-  "description": "For Oath Hack Day in 23- 24 Jan. 2018",
-  "main": "server.js",
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/k801030/hackday-backend.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/k801030/hackday-backend/issues"
-  },
-  "homepage": "https://github.com/k801030/hackday-backend#readme"
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
+  }
 }
