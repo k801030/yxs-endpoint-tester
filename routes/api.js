@@ -1,32 +1,19 @@
 var express = require('express');
 var request = require('request');
 var mapping = require('../app/mapping');
+var constant = require('../app/constant');
+
 var router = express.Router();
 
-router.get('/order', function(req, res) {
-    res.json({ "product-name": "行動電源"});
-})
 
-router.get('/order/:id', function(req, res) {
-    res.json({ "product-name": "行動電源 編號:" + req.params.id});
-})
-
-router.post('/order', function(req, res) {
-    res.json({ 
-        "product-name": "偽造的" + req.body.name,
-        "count": req.query.count
-    });
-})
-
-
-/// 
 var mapData = [];
 let roomMapping = new Object();
 
 var elevator = { // middle point between SYS Memorial Hall and Metro Opera House
-    x: 154.67,
-    y: 133
+    x: 570.275,
+    y: 398.3
 }
+
 var startingPoints = {
     elevator
 }
@@ -68,6 +55,25 @@ function init() {
     });
 }
 
+function calculateDistance(startingPoint) {
+//    var  = startingPoints.elevator;
+    var distanceData = [];
+    for(i=0; i<mapData.length; i++) {
+        var xMeter = Math.round((mapData[i].x - startingPoint.x) * constant.pixelToMeterRatio);
+        var yMeter = Math.round((mapData[i].y - startingPoint.y) * constant.pixelToMeterRatio);
+        distanceData[i] = {
+            seq: mapData[i].seq,
+            name: {
+                en: mapData[i].name.en,
+                zh: mapData[i].name.zh
+            },
+            x_meter: xMeter,
+            y_meter: yMeter
+        }
+    }
+    return distanceData;
+}
+
 init();
 
 
@@ -75,8 +81,9 @@ init();
 
 /**
  * Get all locations in floor 14th
+ * query: type [pretty]
  */
-router.get('/maps/floor14', function(req, res) {
+router.get('/floor14', function(req, res) {
     var type = req.query.type;
 
     var obj = {"data": mapData};
@@ -87,13 +94,26 @@ router.get('/maps/floor14', function(req, res) {
     }
 })
 
+/**
+ * Get distance from starting point
+ */
+router.get('/floor14/distance', function(req, res) {
+    var distanceData = calculateDistance(startingPoints.elevator);
+    res.json(distanceData);
+})
+
+
 
 /**
  * Get location of starting point
  */
-router.get('/maps/starting_points', function(req, res) {
+router.get('/floor14/starting_points', function(req, res) {
     res.json(elevator);
 })
+
+
+
+
 
 
 router.get('/maps/floor14_mapping', function(req, res) {
@@ -102,7 +122,6 @@ router.get('/maps/floor14_mapping', function(req, res) {
         "data": roomMapping
     });
 })
-
 
 
 module.exports = router;
