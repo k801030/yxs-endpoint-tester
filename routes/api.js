@@ -84,10 +84,10 @@ init();
  * query: type [pretty]
  */
 router.get('/floor14/location', function(req, res) {
-    var type = req.query.type;
+    var format = req.query.format;
 
     var obj = {"data": mapData};
-    if(type == "pretty") {
+    if(format == "html") {
         res.send("<pre>"+JSON.stringify(obj, null, 4)+"</pre>");
     } else {
         res.json(obj);
@@ -99,7 +99,14 @@ router.get('/floor14/location', function(req, res) {
  */
 router.get('/floor14/distance', function(req, res) {
     var distanceData = calculateDistance(startingPoints.elevator);
-    res.json(distanceData);
+    var format = req.query.format;
+
+    var obj = {"data": distanceData};
+    if(format == "html") {
+        res.send("<pre>"+JSON.stringify(obj, null, 4)+"</pre>");
+    } else {
+        res.json(obj);
+    }
 })
 
 
