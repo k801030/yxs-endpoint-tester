@@ -70,14 +70,23 @@ function init() {
 
 init();
 
+
+
+
 /**
  * Get all locations in floor 14th
  */
 router.get('/maps/floor14', function(req, res) {
-    res.json({
-        "data": mapData
-    });
+    var type = req.query.type;
+
+    var obj = {"data": mapData};
+    if(type == "json") {
+        res.json(obj);
+    } else {
+        res.send("<pre>"+JSON.stringify(obj, null, 4)+"</pre>");
+    }
 })
+
 
 /**
  * Get location of starting point
