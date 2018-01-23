@@ -80,10 +80,10 @@ router.get('/maps/floor14', function(req, res) {
     var type = req.query.type;
 
     var obj = {"data": mapData};
-    if(type == "json") {
-        res.json(obj);
-    } else {
+    if(type == "pretty") {
         res.send("<pre>"+JSON.stringify(obj, null, 4)+"</pre>");
+    } else {
+        res.json(obj);
     }
 })
 
