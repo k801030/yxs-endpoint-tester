@@ -83,7 +83,7 @@ init();
  * Get all locations in floor 14th
  * query: type [pretty]
  */
-router.get('/floor14', function(req, res) {
+router.get('/floor14/location', function(req, res) {
     var type = req.query.type;
 
     var obj = {"data": mapData};
