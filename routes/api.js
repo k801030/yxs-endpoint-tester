@@ -135,5 +135,26 @@ router.get('/maps/floor14_mapping', function(req, res) {
 })
 
 
+/**
+ * Get location of starting point
+ */
+router.get('/yxs2', function(req, res) {
+		console.log('===GET YXS2===\n');
+		console.log(req);
+		console.log('body: ' + req.body);
+		console.log('===END===\n');
+    res.sendStatus(200);
+})
+
+/**
+ * Get location of starting point
+ */
+router.post('/yxs2', function(req, res) {
+		console.log('===POST YXS2===\n');
+		console.log(req);
+		console.log('body: ' + JSON.stringify(req.body));
+		console.log('===END===\n');
+    res.sendStatus(200);
+})
 module.exports = router;
 
